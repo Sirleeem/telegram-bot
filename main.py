@@ -6,16 +6,17 @@ import os
 api_id = 21486544
 api_hash = 'fabd7b31ac08f72e36ef51c0d8c84861'
 
-# Your Telegram ID (only you can use the bot)
+# Your Telegram ID
 OWNER_ID = 5281036551
 
+# Use existing session file
 client = TelegramClient("anon", api_id, api_hash)
 
 @client.on(events.NewMessage(pattern='/start'))
 async def start(event):
     if event.sender_id != OWNER_ID:
         return
-    await event.reply("👋 Welcome! Send me a video link (TikTok, X, Instagram, PH) to download.")
+    await event.reply("👋 Welcome! Send me a video link to download (TikTok, X, IG, etc).")
 
 @client.on(events.NewMessage())
 async def handle(event):
@@ -37,5 +38,10 @@ async def handle(event):
             await client.send_file(event.chat_id, filename, caption="✅ Done.")
             os.remove(filename)
         else:
-            await event.reply("❌ File download failed.")
-    except Ex
+            await event.reply("❌ Failed to download file.")
+    except Exception as e:
+        await event.reply(f"⚠️ Error: {str(e)}")
+
+with client:
+    print("✅ Bot is running...")
+    client.run_until_disconnected()
