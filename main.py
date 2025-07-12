@@ -3,11 +3,11 @@ from telethon import TelegramClient, events
 import os
 
 # Your API credentials
-api_id = 21486544
-api_hash = 'fabd7b31ac08f72e36ef51c0d8c84861'
+api_id = 
+api_hash = ''
 
 # Your Telegram ID
-OWNER_ID = 5281036551
+OWNER_ID = 
 
 # Use existing session file
 client = TelegramClient("anon", api_id, api_hash)
